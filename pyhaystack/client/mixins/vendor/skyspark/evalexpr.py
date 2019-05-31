@@ -37,6 +37,11 @@ class EvalOpsMixin(object):
         url = 'eval?expr=%s' % arg_expr
         return self._get_grid(url, callback=lambda *a, **k: None)
 
+    def post_eval(self, arg_expr):
+        raise Exception("Test")
+        # url = 'eval?expr=%s' % arg_expr
+        # return self._post_grid(url, callback=lambda *a, **k: None)
+
 #    ===========================
 #    This function is commented and not working. I don't have anything to test
 #    This should return multiple grids and I don't know how pyhaystack will react
