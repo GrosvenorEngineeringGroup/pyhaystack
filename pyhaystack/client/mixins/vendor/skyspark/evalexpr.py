@@ -40,6 +40,7 @@ class EvalOpsMixin(object):
         return self._get_grid(url, callback=lambda *a, **k: None)
 
     def post_eval(self, arg_expr):
+        url = "eval"
         grid = hszinc.Grid()
         grid.column['expr'] = {}
         grid.extend([{'expr': arg_expr}])
