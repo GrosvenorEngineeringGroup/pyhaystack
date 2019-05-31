@@ -7,6 +7,8 @@ This is a BETA function that will need to be tested by users
 
 """
 
+import hszinc
+
 class EvalOpsMixin(object):
     """
     This will add function needed to implement the eval ops
@@ -38,9 +40,10 @@ class EvalOpsMixin(object):
         return self._get_grid(url, callback=lambda *a, **k: None)
 
     def post_eval(self, arg_expr):
-        raise Exception("Test")
-        # url = 'eval?expr=%s' % arg_expr
-        # return self._post_grid(url, callback=lambda *a, **k: None)
+        grid = hszinc.Grid()
+        grid.column['expr'] = {}
+        grid.extend([{'expr': arg_expr}])
+        return self._post_grid(url, grid, callback=lambda *a, **k: None)
 
 #    ===========================
 #    This function is commented and not working. I don't have anything to test
