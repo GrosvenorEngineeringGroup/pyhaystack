@@ -220,6 +220,8 @@ class SkysparkScramAuthenticateOperation(state.HaystackOperation):
             self._state_machine.exception(result=AsynchronousException())
 
     def _validate_server_token(self, response):
+        print(response.headers)
+        print(response.text)
         try:
             server_response = response.headers['Authentication-Info']
             tab_response = server_response.split(',')
