@@ -109,6 +109,8 @@ class SkysparkScramAuthenticateOperation(state.HaystackOperation):
 
 
     def _on_new_session(self, response):
+        print(response.headers)
+        print(response.text)
         """
         Retrieve the log-in parameters.
         """
@@ -133,6 +135,8 @@ class SkysparkScramAuthenticateOperation(state.HaystackOperation):
             self._state_machine.exception(result=AsynchronousException())
 
     def _validate_hs_token(self, response):
+        print(response.headers)
+        print(response.text)
         try:
             response.reraise() # ← AsynchronousException class
         except HTTPStatusError as e:
@@ -172,6 +176,8 @@ class SkysparkScramAuthenticateOperation(state.HaystackOperation):
             self._state_machine.exception(result=AsynchronousException())
 
     def _validate_sec_msg(self, response):
+        print(response.headers)
+        print(response.text)
         try:
             response.reraise() # ← AsynchronousException class
         except HTTPStatusError as e:
