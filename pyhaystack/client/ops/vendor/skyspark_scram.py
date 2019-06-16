@@ -109,8 +109,9 @@ class SkysparkScramAuthenticateOperation(state.HaystackOperation):
 
 
     def _on_new_session(self, response):
+        print("_on_new_session")
         print(response.headers)
-        print(response.text)
+        # print(response.text)
         """
         Retrieve the log-in parameters.
         """
@@ -118,14 +119,16 @@ class SkysparkScramAuthenticateOperation(state.HaystackOperation):
             #if isinstance(response, AsynchronousException):
             #    response.reraise()
             self._nonce = scram.get_nonce()
+            print("got nonce")
             self._salt_username = scram.base64_no_padding(self._session._username)
+            print("salted username")
             self.client_first_message = "HELLO username=%s" % (self._salt_username)
             self._state_machine.do_hs_token()
         except Exception as e: # Catch all exceptions to pass to caller.
             self._state_machine.exception(result=AsynchronousException())
 
     def _do_hs_token(self, event):
-
+        print("_do_hs_token")
         try:
             self._session._get('%s/ui' % self._login_uri,
                     callback=self._validate_hs_token,
