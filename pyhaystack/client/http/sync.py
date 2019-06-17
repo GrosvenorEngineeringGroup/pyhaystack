@@ -44,6 +44,7 @@ class SyncHttpClient(HTTPClient):
         try:
             try:
                 try:
+                    self._session.cookies.clear()
                     # This is where the request actually gets sent:
                     response = self._session.request(
                             method=method, url=uri, data=body,
