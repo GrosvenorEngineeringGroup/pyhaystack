@@ -44,6 +44,7 @@ class SyncHttpClient(HTTPClient):
         try:
             try:
                 try:
+                    self._session.cookies.clear()  # Remove the skyarc-auth cookie which is persisted through the session.
                     response = self._session.request(
                             method=method, url=uri, data=body,
                             headers=headers, cookies=cookies,
