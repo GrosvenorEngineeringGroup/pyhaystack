@@ -138,6 +138,7 @@ class SkysparkScramAuthenticateOperation(state.HaystackOperation):
             self._state_machine.exception(result=AsynchronousException())
 
     def _validate_hs_token(self, response):
+        print("_validate_hs_token")
         print(response.headers)
         print(response.text)
         try:
@@ -165,6 +166,7 @@ class SkysparkScramAuthenticateOperation(state.HaystackOperation):
 
 
     def _do_second_msg(self, event):
+        print("_do_second_msg")
         self._client_second_msg = "n=%s,r=%s" % (self._session._username, self._nonce)
         client_second_msg_encoded = scram.base64_no_padding(self._client_second_msg)
         authMsg = "SCRAM handshakeToken=%s, data=%s" % (self._handshake_token , client_second_msg_encoded )
@@ -179,6 +181,7 @@ class SkysparkScramAuthenticateOperation(state.HaystackOperation):
             self._state_machine.exception(result=AsynchronousException())
 
     def _validate_sec_msg(self, response):
+        print("_validate_sec_msg")
         print(response.headers)
         print(response.text)
         try:
@@ -207,6 +210,7 @@ class SkysparkScramAuthenticateOperation(state.HaystackOperation):
                 self._state_machine.exception(result=AsynchronousException())
 
     def _do_server_token(self, event):
+        print("_do_server_token")
         client_final_no_proof = "c=%s,r=%s" % ( scram.standard_b64encode(b'n,,').decode() , self._server_nonce )
         auth_msg              = "%s,%s,%s" % ( self._client_second_msg, self._server_first_msg, client_final_no_proof )
         client_key            = hmac.new(unhexlify(scram.salted_password(self._server_salt, self._server_iterations, self._algorithm_name, self._session._password)), "Client Key".encode('UTF-8'), self._algorithm).hexdigest()
@@ -229,6 +233,7 @@ class SkysparkScramAuthenticateOperation(state.HaystackOperation):
             self._state_machine.exception(result=AsynchronousException())
 
     def _validate_server_token(self, response):
+        print("_validate_server_token")
         print(response.headers)
         print(response.text)
         try:
