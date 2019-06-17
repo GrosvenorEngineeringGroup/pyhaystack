@@ -110,7 +110,7 @@ class SkysparkScramAuthenticateOperation(state.HaystackOperation):
 
     def _on_new_session(self, response):
         print("_on_new_session")
-        print(response.headers)
+        # print(response.headers)
         # print(response.text)
         """
         Retrieve the log-in parameters.
@@ -119,9 +119,9 @@ class SkysparkScramAuthenticateOperation(state.HaystackOperation):
             #if isinstance(response, AsynchronousException):
             #    response.reraise()
             self._nonce = scram.get_nonce()
-            print("got nonce")
+            # print("got nonce")
             self._salt_username = scram.base64_no_padding(self._session._username)
-            print("salted username")
+            # print("salted username")
             self.client_first_message = "HELLO username=%s" % (self._salt_username)
             self._state_machine.do_hs_token()
         except Exception as e: # Catch all exceptions to pass to caller.
@@ -139,8 +139,8 @@ class SkysparkScramAuthenticateOperation(state.HaystackOperation):
 
     def _validate_hs_token(self, response):
         print("_validate_hs_token")
-        print(response.headers)
-        print(response.text)
+        # print(response.headers)
+        # print(response.text)
         try:
             response.reraise() # ← AsynchronousException class
         except HTTPStatusError as e:
@@ -182,8 +182,8 @@ class SkysparkScramAuthenticateOperation(state.HaystackOperation):
 
     def _validate_sec_msg(self, response):
         print("_validate_sec_msg")
-        print(response.headers)
-        print(response.text)
+        # print(response.headers)
+        # print(response.text)
         try:
             response.reraise() # ← AsynchronousException class
         except HTTPStatusError as e:
@@ -234,8 +234,8 @@ class SkysparkScramAuthenticateOperation(state.HaystackOperation):
 
     def _validate_server_token(self, response):
         print("_validate_server_token")
-        print(response.headers)
-        print(response.text)
+        # print(response.headers)
+        # print(response.text)
         try:
             server_response = response.headers['Authentication-Info']
             tab_response = server_response.split(',')
