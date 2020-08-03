@@ -59,6 +59,12 @@ class SyncHttpClient(HTTPClient):
         try:
             try:
                 try:
+                    # Remove the skyarc-auth cookie which is persisted through the session.
+                    # When using BEARER auth, we probably shouldn't be using
+                    # the cookie anyway.
+                    # See https://github.com/ChristianTremblay/pyhaystack/issues/84
+                    self._session.cookies.clear()
+
                     response = self._session.request(
                         method=method,
                         url=uri,
